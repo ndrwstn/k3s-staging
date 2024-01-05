@@ -1,0 +1,12 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nietzsche-k3s-nfs
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: nietzsche.impetuo.us
+  share: /mnt/primary/shared/kube.nfs
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+mountOptions: ["hard", "noatime"]
