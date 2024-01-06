@@ -46,7 +46,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://cnpg/
-      endpointURL: https://${SECRET_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
+      endpointURL: ${AWS_ENDPOINT}
       serverName: &currentCluster cnpg16-v6
       s3Credentials:
         accessKeyId:
@@ -63,7 +63,7 @@ spec:
   #         compression: bzip2
   #         maxParallel: 8
   #       destinationPath: s3://cnpg/
-  #       endpointURL: https://${SECRET_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
+  #       endpointURL: ${AWS_ENDPOINT}
   #       s3Credentials:
   #         accessKeyId:
   #           name: cloudnative-pg-secret
