@@ -24,8 +24,8 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: democratic-csi-localpath
-      namespace: system
+    - name: csi-driver-nfs
+      namespace: flux-system
   values:
     crds:
       create: true
