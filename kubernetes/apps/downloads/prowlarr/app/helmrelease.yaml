@@ -10,59 +10,77 @@ spec:
     spec:
       chart: app-template
       version: 2.4.0
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
 
   values:
     controllers:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
-
-        pod:
-          labels:
-            egress.home.arpa/internet: allow
-            egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-            ingress.home.arpa/nginx-internal: allow
-          securityContext:
-            runAsUser: ${APP_UID}
-            runAsGroup: ${APP_GID}
-            runAsNonRoot: true
-            fsGroup: ${APP_GID}
-            fsGroupChangePolicy: OnRootMismatch
-
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: prowlarr-secret
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-nightly
+              repository: ghcr.io/onedr0p/prowlarr-develop
               tag: 1.12.0.4188@sha256:a9d792bb2ef029a6cb93ea9ac013224bca801fe0376e9f4362179c75f6a9de17
             env:
               COMPlus_EnableDiagnostics: "0"
               PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
+              PROWLARR__PORT: &port 80
               PROWLARR__LOG_LEVEL: info
-              PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: prowlarr-secret
-                    key: api_key
-            resources:
-              requests:
-                cpu: 18m
-                memory: 128Mi
-              limits:
-                memory: 256Mi
+              TZ: America/New_York
+            endFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+        pod:
+          securityContext:
+            runAsUser: 26
+            runAsGroup: 26
+            runAsNonRoot: true
+            fsGroup: 26
+            fsGroupChangePolicy: OnRootMismatch
 
     service:
       main:
@@ -73,9 +91,9 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "internal-nginx"
+        className: internal
         hosts:
-          - host: "${HOSTNAME}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -83,7 +101,8 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "${HOSTNAME}"
+              - *host
+
 
     persistence:
       config:
