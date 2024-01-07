@@ -24,5 +24,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    serviceAccount:
+      create: false
+      controller: csi-nfs-controller-sa
+      node: csi-nfs-node-sa
+    rbac:
+      create: false
     externalSnapshotter:
       enabled: false
