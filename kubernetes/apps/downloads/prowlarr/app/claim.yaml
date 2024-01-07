@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prowlarr-config-pv
+  namespace: downloads
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+spec:
+  capacity:
+    storage: ${VOLSYNC_CAPACITY}
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4.1
+    - hard
+    - rw
+  csi:
+    driver: nfs.csi.k8.io
+    volumeHandle: 10.1.50.15/mnt/highwrite/k3s-staging/config#prowlarr#prowlarr-config
+    volumeAttributes:
+      server: 10.1.50.15
+      share: /mnt/highwrite/k3s-staging/config/prowlarr
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prowlarr-config-pvc
+  namespace: downloads
+spec:
+  volumeName: prowlarr-config-pv
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${VOLSYNC_CAPACITY}
