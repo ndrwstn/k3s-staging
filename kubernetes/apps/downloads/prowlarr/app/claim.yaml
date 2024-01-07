@@ -22,7 +22,7 @@ spec:
     volumeHandle: 10.1.50.15/mnt/highwrite/k3s-staging/config#prowlarr#prowlarr-config
     volumeAttributes:
       server: 10.1.50.15
-      share: /mnt/highwrite/k3s-staging/config/
+      share: /mnt/highwrite/k3s-staging/config/prowlarr
 
 ---
 apiVersion: v1
