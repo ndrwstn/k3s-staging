@@ -5,7 +5,7 @@ metadata:
   name: nietzsche-k3s-nfs
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: nietzsche.impetuo.us
+  server: 10.1.50.15
   share: /mnt/primary/shared/kube.nfs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
