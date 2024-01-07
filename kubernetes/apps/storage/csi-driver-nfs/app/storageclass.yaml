@@ -6,7 +6,7 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   server: 10.1.50.15
-  share: /mnt/primary/shared/kube.nfs
+  share: /mnt/highwrite/k3s-staging/volumes
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 mountOptions: ["hard", "noatime"]
