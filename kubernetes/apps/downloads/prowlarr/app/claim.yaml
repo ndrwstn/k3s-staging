@@ -4,6 +4,8 @@ kind: PersistentVolume
 metadata:
   name: prowlarr-config-pv
   namespace: downloads
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
 spec:
   capacity:
     storage: ${VOLSYNC_CAPACITY}
@@ -15,9 +17,12 @@ spec:
     - nfsvers=4.1
     - hard
     - rw
-  nfs:
-    path: /mnt/highwrite/k3s-staging/config/prowlarr
-    server: nietzsche.impetuo.us
+  csi:
+    driver: nfs.csi.k8.io
+    volumeHandle: 10.1.50.15/mnt/highwrite/k3s-staging/config#prowlarr#prowlarr-config
+    volumeAttributes:
+      server: 10.1.50.15
+      share: /mnt/highwrite/k3s-staging/config/
 
 ---
 apiVersion: v1
