@@ -107,4 +107,4 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: "${VOLSYNC_CLAIM}-pvc"
