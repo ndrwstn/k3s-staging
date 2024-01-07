@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: csi-driver-nfs
-      namespace: flux-system
+      namespace: storage
   values:
     crds:
       create: true
