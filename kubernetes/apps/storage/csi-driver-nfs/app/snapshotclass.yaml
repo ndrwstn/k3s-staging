@@ -1,0 +1,10 @@
+---
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: nietzsche-k3s-nfs-snap
+driver: nfs.csi.k8s.io
+deletionPolicy: Delete
+# parameters:
+#   server: 10.1.50.15
+#   share: /mnt/highwrite/k3s-staging/snapshots
