@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pv-database-postgres16
+  name: pvc-database-postgres16
   # namespace: database
 spec:
   # storageClassName: nietzsche-services-nfs

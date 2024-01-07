@@ -10,7 +10,8 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
-    storageClass: nietzsche-k3s-nfs
+    existingClaim: pvc-database-postgres16
+    # storageClass: nietzsche-k3s-nfs
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
