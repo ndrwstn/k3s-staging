@@ -49,7 +49,9 @@ spec:
               PROWLARR__LOG_LEVEL: info
               PROWLARR__AUTHENTICATION_METHOD: External
               TZ: America/New_York
-            endFrom: *envFrom
+            endFrom:
+              - secretRef:
+                name: prowlarr-secret
             probes:
               liveness: &probes
                 enabled: true
