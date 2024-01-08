@@ -8,11 +8,12 @@ metadata:
     pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
 spec:
   capacity:
-    storage: ${VOLSYNC_CAPACITY}
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: nietzsche-nfs-config
   mountOptions:
     - nfsvers=4.1
     - hard
