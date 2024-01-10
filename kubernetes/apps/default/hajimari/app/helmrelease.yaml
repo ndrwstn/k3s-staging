@@ -38,6 +38,7 @@ spec:
       namespaceSelector:
         matchNames:
           - default
+          - downloads
           - observability
     ingress:
       main:
