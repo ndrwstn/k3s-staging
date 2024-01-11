@@ -50,7 +50,7 @@ spec:
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               TZ: America/New_York
-            endFrom:
+            envFrom:
               - secretRef:
                 name: radarr-secret
             probes:
