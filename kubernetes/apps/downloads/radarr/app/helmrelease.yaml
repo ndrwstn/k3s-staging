@@ -52,7 +52,7 @@ spec:
               TZ: America/New_York
             envFrom:
               - secretRef:
-                name: radarr-secret
+                  name: radarr-secret
             probes:
               liveness: &probes
                 enabled: true
