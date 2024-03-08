@@ -23,61 +23,61 @@ spec:
   uninstall:
     keepHistory: false
 
-  values:
-    controllers:
-      main:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: firefly3-secret
-        containers:
-          main:
-            image:
-              repository: fireflyiii/core
-              tag: version-6.1.10
-            env:
-              TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: radarr-secret
-            # probes:
-            #   liveness: &probes
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       httpGet:
-            #         path: /ping
-            #         port: *port
-            #       initialDelaySeconds: 0
-            #       periodSeconds: 10
-            #       timeoutSeconds: 1
-            #       failureThreshold: 3
-            #   readiness: *probes
-            #   startup:
-            #     enabled: false
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 256Mi
+  # values:
+  #   controllers:
+  #     main:
+  #       annotations:
+  #         reloader.stakater.com/auto: "true"
+  #       initContainers:
+  #         init-db:
+  #           image:
+  #             repository: ghcr.io/onedr0p/postgres-init
+  #             tag: 16
+  #           envFrom: &envFrom
+  #             - secretRef:
+  #                 name: firefly3-secret
+  #       containers:
+  #         main:
+  #           image:
+  #             repository: fireflyiii/core
+  #             tag: version-6.1.10
+  #           env:
+  #             TZ: America/New_York
+  #           envFrom:
+  #             - secretRef:
+  #                 name: radarr-secret
+  #           # probes:
+  #           #   liveness: &probes
+  #           #     enabled: true
+  #           #     custom: true
+  #           #     spec:
+  #           #       httpGet:
+  #           #         path: /ping
+  #           #         port: *port
+  #           #       initialDelaySeconds: 0
+  #           #       periodSeconds: 10
+  #           #       timeoutSeconds: 1
+  #           #       failureThreshold: 3
+  #           #   readiness: *probes
+  #           #   startup:
+  #           #     enabled: false
+  #           # securityContext:
+  #           #   allowPrivilegeEscalation: false
+  #           #   readOnlyRootFilesystem: true
+  #           #   capabilities: { drop: ["ALL"] }
+  #           resources:
+  #             requests:
+  #               cpu: 100m
+  #             limits:
+  #               memory: 256Mi
 
-        pod:
-          securityContext:
-            runAsUser: 26
-            runAsGroup: 26
-            runAsNonRoot: true
-            fsGroup: 26
-            fsGroupChangePolicy: OnRootMismatch
+  #       pod:
+  #         securityContext:
+  #           runAsUser: 26
+  #           runAsGroup: 26
+  #           runAsNonRoot: true
+  #           fsGroup: 26
+  #           fsGroupChangePolicy: OnRootMismatch
 
 
     service:
