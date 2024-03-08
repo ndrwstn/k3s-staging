@@ -23,9 +23,9 @@ spec:
   uninstall:
     keepHistory: false
 
-  # values:
-  #   controllers:
-  #     main:
+  values:
+    controllers:
+      main:
   #       annotations:
   #         reloader.stakater.com/auto: "true"
   #       initContainers:
@@ -36,16 +36,16 @@ spec:
   #           envFrom: &envFrom
   #             - secretRef:
   #                 name: firefly3-secret
-  #       containers:
-  #         main:
-  #           image:
-  #             repository: fireflyiii/core
-  #             tag: version-6.1.10
-  #           env:
-  #             TZ: America/New_York
-  #           envFrom:
-  #             - secretRef:
-  #                 name: radarr-secret
+        containers:
+          main:
+            image:
+              repository: fireflyiii/core
+              tag: version-6.1.10
+            env:
+              TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: radarr-secret
   #           # probes:
   #           #   liveness: &probes
   #           #     enabled: true
