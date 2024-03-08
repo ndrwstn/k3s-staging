@@ -26,8 +26,8 @@ spec:
   values:
     controllers:
       main:
-  #       annotations:
-  #         reloader.stakater.com/auto: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
   #       initContainers:
   #         init-db:
   #           image:
@@ -65,19 +65,19 @@ spec:
   #           #   allowPrivilegeEscalation: false
   #           #   readOnlyRootFilesystem: true
   #           #   capabilities: { drop: ["ALL"] }
-  #           resources:
-  #             requests:
-  #               cpu: 100m
-  #             limits:
-  #               memory: 256Mi
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 256Mi
 
-  #       pod:
-  #         securityContext:
-  #           runAsUser: 26
-  #           runAsGroup: 26
-  #           runAsNonRoot: true
-  #           fsGroup: 26
-  #           fsGroupChangePolicy: OnRootMismatch
+        pod:
+          securityContext:
+            runAsUser: 26
+            runAsGroup: 26
+            runAsNonRoot: true
+            fsGroup: 26
+            fsGroupChangePolicy: OnRootMismatch
 
 
     service:
