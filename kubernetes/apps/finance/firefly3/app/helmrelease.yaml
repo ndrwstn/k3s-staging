@@ -37,7 +37,7 @@ spec:
              repository: ghcr.io/onedr0p/postgres-init
              tag: 16
             imagePullPolicy: IfNotPresent
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
                   name: firefly3-secret
 
@@ -48,7 +48,9 @@ spec:
               tag: version-6.1.10
             env:
               TZ: America/New_York
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: firefly3-secret
             resources:
               requests:
                 cpu: 100m
